@@ -60,11 +60,11 @@ const Home = () => {
             Papa.parse(file, {
                 header: true, // Parse CSV with headers
                 skipEmptyLines: true,
-                complete: (results) => {
+                complete: (results:Papa.ParseResult<{Email?:string}>) => {
                     const data = results.data as { Email?: string }[];
                     const extractedEmails = data
                         .map(row => row.Email?.trim())
-                        .filter(email => email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)); // Validate email format
+                        .filter(email => email !==undefined && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)); // Validate email format
                     
                     if (extractedEmails.length > 0) {
                         setEmail(extractedEmails);
