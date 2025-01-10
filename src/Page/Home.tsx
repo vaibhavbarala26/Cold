@@ -62,10 +62,10 @@ const Home = () => {
                 skipEmptyLines: true,
                 complete: (results:Papa.ParseResult<{Email?:string}>) => {
                     const data = results.data as { Email?: string }[];
-                    const extractedEmails = data
-                        .map(row => row.Email?.trim())
-                        .filter(email => email !==undefined && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)); // Validate email format
-                    
+                    const extractedEmails: string[] = data
+                    .map(row => row.Email?.trim()) // This can return string or undefined
+                    .filter((email): email is string => email !== undefined && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)); // Filters out undefined and invalid emails
+                
                     if (extractedEmails.length > 0) {
                         setEmail(extractedEmails);
                         setCustomEmails(extractedEmails
