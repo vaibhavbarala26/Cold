@@ -8,7 +8,7 @@ import ContactInfo from '@/Component/ContactInfo'
 
 const Dashboard = () => {
   return (
-    <div className=''><Header></Header>
+    <div className='overflow-x-hidden text-center'><Header></Header>
     <div className='flex flex-col justify-center items-center  '>
       
       <div className='flex md:flex-row flex-col  items-center gap-10 justify-center '>
