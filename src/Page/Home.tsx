@@ -81,14 +81,29 @@ const Home = () => {
         const profilename = profile || ""
         setProfile((pro) => ([...pro, { name: profilename, id: Date.now().toString() }]))
         setProfile_("")
+        setFile("")
     }
-    const handleUpdate = (email: string, field: keyof CustomEmail, value: string) => {
-        setCustomEmails((customemail.map((ce) => (
-            ce.email === email ? { ...ce, [field]: field === "profileId" && value === "no-profile" ? "" : value } : ce
-        ))))
-       // console.log(customemail);
-
-    }
+    const handleUpdate = (email: string, field: keyof CustomEmail | "content", value: any) => {
+        setCustomEmails(customemail.map((ce) => {
+            if (ce.email === email) {
+                if (field === "content") {
+                    return {
+                        ...ce,
+                        content: {
+                            ...ce.content,
+                            ...value
+                        }
+                    };
+                }
+                return {
+                    ...ce,
+                    [field]: value
+                };
+            }
+            return ce;
+        }));
+    };
+    
     const handlesend = () => {
         console.log(customemail);
         setCustomEmails([])
@@ -218,7 +233,8 @@ const Home = () => {
                                                             placeholder="Enter subject"
                                                             value={ce.content.subject}
                                                             className='border-2 border-black'
-                                                            onChange={(e) => handleUpdate(ce.email, 'content', { ...ce.content, subject: e.target.value })}
+                                                            onChange={(e) => handleUpdate(ce.email, 'content', { subject: e.target.value })}
+
                                                         />
                                                     </div>
                                                     <div className='px-2 space-y-2'>
@@ -229,7 +245,8 @@ const Home = () => {
                                                             className='border-2 border-black'
                                                             rows={5}
                                                             value={ce.content.body}
-                                                            onChange={(e) => handleUpdate(ce.email, 'content', { ...ce.content, body: e.target.value })}
+                                                            onChange={(e) => handleUpdate(ce.email, 'content', { body: e.target.value })}
+
                                                         />
                                                     </div>
                                                 </div>

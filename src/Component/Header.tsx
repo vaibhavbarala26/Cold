@@ -13,7 +13,7 @@ const location = useLocation();
   return (
     <div className="md:px-96 py-8 px-2 text-xs md:text-xl">
       <div>
-        <div className="h-12 bg-black shadow-large rounded-full flex  justify-around items-center md:gap-40 p-3">
+        <div className="h-12 px-5 bg-black shadow-large rounded-full flex  justify-around items-center md:gap-40 p-3">
             <div className="flex  w-3/5  justify-between text-white " >
             <Link to={"/"}><span className={`hover:text-yellow-400 cursor-pointer ${pathSegment === '' ? "border-b-2 border-yellow-400" : ""}`}>Home</span></Link>
             <Link to={"/dashboard"}><span className={`hover:text-yellow-400 cursor-pointer ${pathSegment === 'dashboard' ? "border-b-2 border-yellow-400" : ""}`}>Dashboard</span></Link>
