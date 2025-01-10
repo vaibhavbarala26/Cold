@@ -81,7 +81,7 @@ const Home = () => {
         const profilename = profile || ""
         setProfile((pro) => ([...pro, { name: profilename, id: Date.now().toString() }]))
         setProfile_("")
-        setFile("")
+        setFile(null)
     }
     const handleUpdate = (email: string, field: keyof CustomEmail | "content", value: any) => {
         setCustomEmails(customemail.map((ce) => {
