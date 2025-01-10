@@ -1,0 +1,26 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "jsx": "react-jsx", // Set correctly for React 17+
+    "jsxImportSource": "react", // Required for the React JSX Transform
+    "module": "ESNext", // Suitable for modern JavaScript
+    "moduleResolution": "node", // Ensures proper module resolution
+    "target": "ES6", // Or ESNext, depending on your compatibility needs
+    "strict": true, // Enables strict type-checking options
+    "esModuleInterop": true, // Helps with CommonJS module compatibility
+    "skipLibCheck": true, // Skips type-checking of declaration files for faster builds
+    "resolveJsonModule": true // Allows importing JSON files
+  }
+}
