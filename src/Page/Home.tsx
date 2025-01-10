@@ -20,7 +20,7 @@ import {
     
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-
+import Papa from 'papaparse';
 
 import {
     Select,
@@ -54,34 +54,48 @@ const Home = () => {
     const [profile, setProfile_] = useState<string>()
     const [customemail, setCustomEmails] = useState<CustomEmail[]>([])
     const handlechange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const fileget = e.target.files?.[0]
-        if (fileget) {
-          
-            setFile(fileget)
-            const read = new FileReader()
-            read.onload = (e) => {
-                const text = e.target?.result as string
-                const addresses = text.split('\n').map(line => line.trim()).filter(line => line)
-                setEmail(addresses)
-                setCustomEmails(addresses.map(email => ({
-                    email,
-                    profileId: '',
-                    content: { subject: '', body: '' },
-                    mode: 'manual',
-                    aiPrompt: ''
-                })))
-
-
-            }
-            read.readAsText(fileget)
+        const file = e.target.files?.[0];
+        if (file) {
+            setFile(file);  // Set file state if needed elsewhere
+            Papa.parse(file, {
+                header: true, // Parse CSV with headers
+                skipEmptyLines: true,
+                complete: (results) => {
+                    const data = results.data as { Email?: string }[];
+                    const extractedEmails = data
+                        .map(row => row.Email?.trim())
+                        .filter(email => email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)); // Validate email format
+                    
+                    if (extractedEmails.length > 0) {
+                        setEmail(extractedEmails);
+                        setCustomEmails(extractedEmails
+                            .filter(email => email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))  // Filter out invalid emails
+                            .map(email => ({
+                                email: email || "",  // Default to an empty string if email is undefined
+                                profileId: '',
+                                content: { subject: '', body: '' },
+                                mode: 'manual',
+                                aiPrompt: ''
+                            }))
+                        );
+                        
+                    } else {
+                        console.warn("No valid emails found in the uploaded file.");
+                    }
+                },
+                error: (error) => {
+                    console.error("Error parsing CSV file:", error);
+                }
+            });
         }
-    }
+    };
+    
     const handleSubmitProfile = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const profilename = profile || ""
         setProfile((pro) => ([...pro, { name: profilename, id: Date.now().toString() }]))
         setProfile_("")
-        setFile(null)
+       
     }
     const handleUpdate = (email: string, field: keyof CustomEmail | "content", value: any) => {
         setCustomEmails(customemail.map((ce) => {
@@ -102,11 +116,14 @@ const Home = () => {
             }
             return ce;
         }));
+        console.log(customemail);
+        
     };
     
     const handlesend = () => {
         console.log(customemail);
         setCustomEmails([])
+        
     }
     const handleDelete = (id: string) => {
         const updated_profiles = profiles.filter((pre) => pre.id !== id)
