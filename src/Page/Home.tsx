@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import Header from '../Component/Header';
-import { Upload, Mail, Send, Wand2, Plus, Trash2 } from 'lucide-react'
+import { Upload,  Send, Wand2,  Trash2 } from 'lucide-react'
 // Capitalize the icon component
 import {
     Accordion,
@@ -27,19 +27,19 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
+   
 } from "@/components/ui/dialog"
 import Papa from 'papaparse';
 import {
     AlertDialog,
-    AlertDialogAction,
+    
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-    AlertDialogTrigger,
+   
 } from "@/components/ui/alert-dialog"
 import {
     Select,
@@ -49,7 +49,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Switch } from '@/components/ui/switch';
-import Operation from 'antd/es/transfer/operation';
+
 
 interface EmailContent {
     subject: string;
@@ -154,9 +154,7 @@ const Home = () => {
         );
     };
 
-    const handledialogclose = () => {
-        setoperaionaftersend(false)
-    }
+    
     const handlesend = () => {
         let errorFound = false;  // Track if an error is found
 
@@ -231,7 +229,7 @@ const Home = () => {
                     <div className='md:w-1/2'>
 
                         <div className='border-2 border-black p-3 rounded-lg'>
-                            <Switch value={CSVupload} onCheckedChange={(checked) => setCSVupload(checked)}></Switch>
+                            <Switch checked={CSVupload} onCheckedChange={(checked) => setCSVupload(checked)}></Switch>
                             {CSVupload ? (<><h1 className='mb-2'>Upload CSV</h1>
                                 <label htmlFor="csv-upload" className="cursor-pointer">
                                     <div className="border-2 border-dashed border-black rounded-lg p-4 text-center">
@@ -408,6 +406,8 @@ const Home = () => {
                 </div>) : (null)}
                 <div className="mt-4 text-right mb-4">
                     <Button onClick={handlesend} disabled={customemail.length === 0 || customemail.some(ce => !ce.content.subject || !ce.content.body)}>
+                        
+                        <Send></Send>
                         Send Campaign
                     </Button>
                 </div>
