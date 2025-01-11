@@ -78,7 +78,7 @@ const Home = () => {
     const [customemail, setCustomEmails] = useState<CustomEmail[]>([])
     const [CSVupload, setCSVupload] = useState<boolean>(false)
     const [addedEmails, setAddedEmail] = useState<string>("")
-    const [operationaftersend, setoperaionaftersend] = useState<boolean>(true)
+    const [operationaftersend, setoperaionaftersend] = useState<boolean>(false)
     const handlechange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
 
@@ -440,11 +440,11 @@ const Home = () => {
                                 <Label className='text-black'>Schedule Send (optional)</Label>
                                 <Input
                                     type='datetime-local'
-                                    className='w-[50%]'
+                                    className='md:w-[50%]'
                                 ></Input>
                             </div>
                         </DialogDescription>
-                        <DialogFooter>
+                        <DialogFooter className='flex md:flex-row flex-col gap-3'>
                             <Button variant="outline" onClick={() => (setoperaionaftersend(false))}>Cancel</Button>
                             <Button>Send</Button>
                         </DialogFooter>
