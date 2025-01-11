@@ -6,9 +6,10 @@ const location = useLocation();
   const [pathSegment , seTpath] = useState<string>( location.pathname.split('/')[1] ) // Extracts 'open'
   useEffect(()=>{
     seTpath(location.pathname.split('/')[1])
-  },[pathSegment , location.pathname])
-  console.log(pathSegment);
+    console.log(pathSegment);
   
+  },[pathSegment , location.pathname])
+
   
   return (
     <div className="md:px-96 py-8 px-2 text-xs md:text-xl">
