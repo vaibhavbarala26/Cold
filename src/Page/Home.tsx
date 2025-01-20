@@ -68,10 +68,7 @@ interface CustomEmail {
     aiPrompt: string;
 }
 
-interface Profile {
-    id: string;
-    name: string;
-}
+
 
 interface User {
     name: string;

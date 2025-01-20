@@ -2,9 +2,15 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 
 // Define the user interface
 interface User {
-  username: string;
-  email: string;
+  _id: string; // Unique identifier for the user
+  name: string; // Name of the user
+  email: string; // Email address of the user
+  campaign: string[]; // Array of campaigns (can be further detailed if you know the structure)
+  refresh_token: string; // Refresh token for authentication
+  setting: string; // User's setting identifier
+  __v: number; // Version key, typically used by MongoDB
 }
+
 
 // Define the context type that includes `login`, `logout`, and `user`
 interface UserContextType {

@@ -4,21 +4,16 @@ import { useUser } from "@/Context/UserContext";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-interface User {
-  _id: string; // Unique identifier for the user
-  name: string; // Name of the user
-  email: string; // Email address of the user
-  campaign: string[]; // Array of campaigns (can be further detailed if you know the structure)
-  refresh_token: string; // Refresh token for authentication
-  setting: string; // User's setting identifier
-  __v: number; // Version key, typically used by MongoDB
-}
+
 
 const Header = () => {
   const {logout , user } = useUser()
 
   console.log(user);
-  
+  const [username ,setUser] = useState<string>()
+  useEffect(()=>{
+    setUser(user?.name[0])
+  }, [user])
   const navigate = useNavigate()
   const location = useLocation();
   const [pathSegment, seTpath] = useState<string>(location.pathname.split('/')[1]) // Extracts 'open'
@@ -45,7 +40,7 @@ const Header = () => {
               Sign out
             </button>
             <div className=" text-2xl h-8 w-8 flex items-center justify-center rounded-full bg-white">
-              {user?.name[0]}
+              {username}
             </div>
           </div>):(
             <Link to={"/login"}  className="bg-yellow-400 px-4 py-1 text-xs md:text-[20px] md:py-2  rounded-full">Sign in</Link>
