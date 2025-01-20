@@ -6,7 +6,9 @@ import CampaignPerformance from '@/Component/CampaignPerformance'
 import RecentActivity from '@/Component/RecentActivity'
 import ContactInfo from '@/Component/ContactInfo'
 
+
 const Dashboard = () => {
+  
   return (
     <div className='overflow-x-hidden text-center'><Header></Header>
     <div className='flex flex-col justify-center items-center  '>

@@ -9,19 +9,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
+
 import { Switch } from "@/components/ui/switch";
 import {
   AlertDialog,
-  AlertDialogAction,
+
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
+  
 } from "@/components/ui/alert-dialog"
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@radix-ui/react-toast";
+import { useUser } from "@/Context/UserContext";
 
 const Email = () => {
   const [enableFollow, setFollow] = useState<boolean>(false);
@@ -39,16 +42,19 @@ const Email = () => {
   const templates = ["Template1", "Template2", "Template3"];
   const [additionalmeail, setAdditionalEmail] = useState<string[]>(emails)
   const [addmail, setAddimail] = useState<string>("")
-  const [emailtone, setEmailtone] = useState<string>("friendly")
-  const [personisation, setPersonisation] = useState<string>("33")
-  const [temolate, setTemplate] = useState<string[]>(templates)
-  const [followuptime, setFollowuptime] = useState<string>("5")
+  //const [emailtone, setEmailtone] = useState<string>("friendly")
+  //const [personisation, setPersonisation] = useState<string>("33")
+ // const [temolate, setTemplate] = useState<string[]>(templates)
+  //const [followuptime, setFollowuptime] = useState<string>("5")
+  const [success , setSuccess] = useState<boolean>(false)
   const [emailnoti, setEmailnoti] = useState<boolean>(false)
   const [selectedmail, setSelectedmail] = useState<string>(primary)
   const [performancenoti, setPerformancenoti] = useState<boolean>(false)
   const [selectedTemplate, setSelected] = useState<string>("Template1")
   const [selectedDays, setSelectedDays] = useState<string>("")
-  const add_Additional_email = () => {
+  const { toast } = useToast()
+ 
+  const add_Additional_email = async() => {
     const trimmedEmail = addmail.trim();
     if (trimmedEmail) {
       if (additionalmeail.some((mail) => mail === trimmedEmail)) {
@@ -56,23 +62,71 @@ const Email = () => {
         return;
       }
       setAdditionalEmail((prev) => [...prev, trimmedEmail]);
+      const res = await fetch("http://localhost:1042/user/setting/mail",{
+        method:"POST",
+        headers: {
+          "Content-Type": "application/json", // Ensure the server expects JSON
+      },
+      credentials:"include",
+      body:JSON.stringify({additionalmail:addmail})
+      })
+      if (!res.ok) {
+        // If the response is not OK, throw an error
+        throw new Error("Failed to send emails.");
+    }
       setAddimail("");
     }
+
   };
   function isValidEmail(email: string): boolean {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);
   }
 
-  const HandleSaveSettings = () => {
-    console.log("additional", selectedmail);
-    console.log("tone", emailtone);
-    console.log("personalization", personisation);
-    console.log("template", selectedTemplate);
-    console.log("follow-up", enableFollow);
-    console.log("SelectedDays", selectedDays);
-    console.log("alerts", emailnoti, performancenoti);
+  const [isLoading, setIsLoading] = useState(false);
+const {user} = useUser()
+const HandleSaveSettings = async () => {
+  try {
+    setIsLoading(true);
+    const res = await fetch("http://localhost:1042/user/setting/followup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        template: selectedTemplate,
+        followUps: enableFollow,
+        followupDays: selectedDays,
+      }),
+    });
+
+    if (!res.ok) throw new Error("Failed to save follow-up settings.");
+
+    const resr = await fetch("http://localhost:1042/user/setting/alerts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        emailAlerts: emailnoti,
+        performanceNotification: performancenoti,
+      }),
+    });
+
+    if (!resr.ok) throw new Error("Failed to save notification settings.");
+
+    setSuccess(true);
+    toast({ description: "Settings saved successfully!" });
+    console.log("hello");
+    
+  } catch (error) {
+    toast({
+      title: "Error",
+      description: error.message,
+      action: <ToastAction altText="Retry">Retry</ToastAction>,
+    });
+  } finally {
+    setIsLoading(false);
   }
+};
   return (
     <div className="md:px-96">
       <div className="bg-white flex flex-col gap-4 shadow-lg p-4">
@@ -113,28 +167,7 @@ const Email = () => {
           </div>
         </div>
 
-        {/* AI Preferences Section */}
-        <div className="p-4 border-b-2 ">
-          <span className="text-2xl font-bold">AI Preferences</span>
-          <div className="mt-4">
-            <span className="font-semibold">Email Tone</span>
-            <Select value={emailtone} onValueChange={(value) => setEmailtone(value)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select tone" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="friendly">Friendly</SelectItem>
-                <SelectItem value="professional">Professional</SelectItem>
-                <SelectItem value="casual">Casual</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="mt-4">
-            <span className="font-semibold">Personalization Level</span>
-            <Slider defaultValue={[33]} max={100} step={1} value={[parseInt(personisation)]} onValueChange={(value) => (setPersonisation(value[0].toString()))} />
-          </div>
-
-        </div>
+       
 
         {/* Campaign Settings Section */}
         <div className="p-4 border-b-2">
@@ -197,7 +230,13 @@ const Email = () => {
           </div>
 
         </div>
-        <Button onClick={HandleSaveSettings} className="bg-yellow-400 hover:bg-yellow-300">Save All Settings</Button>
+        <Button
+  onClick={HandleSaveSettings}
+  className="bg-yellow-400 hover:bg-yellow-300"
+  disabled={isLoading}
+>
+  {isLoading ? "Saving..." : "Save All Settings"}
+</Button>
       </div>
       {/* Duplicate Email Alert Dialog */}
       <AlertDialog open={showDuplicateEmailDialog} onOpenChange={setShowDuplicateEmailDialog}>
@@ -214,7 +253,8 @@ const Email = () => {
           </AlertDialogContent>
         </AlertDialog>
       
-    </div>
+      </div>
+    
   );
 };
 

@@ -4,10 +4,9 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { PrimeReactProvider } from 'primereact/api';
 
-import { ClerkProvider, SignedIn, SignedOut } from '@clerk/clerk-react'
 import {
   createBrowserRouter,
-  Link,
+
   RouterProvider,
 } from "react-router-dom";
 import Login from './Page/Login'
@@ -15,12 +14,10 @@ import Register from './Page/Register';
 import Home from './Page/Home';
 import Dashboard from './Page/Dashboard';
 import Setting from './Page/Setting';
+import { UserProvider} from './Context/UserContext';
+import ProtectedRoute from './Component/Protected_Routes';
 // Import your Publishable Key
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
-if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key")
-}
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -37,32 +34,35 @@ const router = createBrowserRouter([
   {
     path:"/",
     element:(
-      <>
-      <SignedIn>
-      <Home></Home>
-      </SignedIn>
-      <SignedOut>
-        <Link to={"/login"}>Login</Link>
-      </SignedOut>
+      <> 
+      <Home></Home> 
       </>
       
     )
   },
   {
     path:"/dashboard",
-    element:<Dashboard></Dashboard>
+    element:<ProtectedRoute>
+      <Dashboard>
+      </Dashboard>
+      </ProtectedRoute>
   },
+
   {
     path:"/setting",
-    element:<Setting></Setting>
+    element:<ProtectedRoute>
+    <Setting></Setting>
+    </ProtectedRoute>
   }
 ]);
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <UserProvider>
     <PrimeReactProvider>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+
     <RouterProvider router={router} />
-    </ClerkProvider>
+  
     </PrimeReactProvider>
+    </UserProvider>
   </React.StrictMode>,
 )
