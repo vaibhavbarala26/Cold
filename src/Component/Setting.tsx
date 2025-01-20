@@ -24,7 +24,6 @@ import {
 } from "@/components/ui/alert-dialog"
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
-import { useUser } from "@/Context/UserContext";
 
 const Email = () => {
   const [enableFollow, setFollow] = useState<boolean>(false);
@@ -84,7 +83,7 @@ const Email = () => {
   }
 
   const [isLoading, setIsLoading] = useState(false);
-const {user} = useUser()
+
 const HandleSaveSettings = async () => {
   try {
     setIsLoading(true);
@@ -118,11 +117,20 @@ const HandleSaveSettings = async () => {
     console.log("hello");
     
   } catch (error) {
-    toast({
-      title: "Error",
-      description: error.message,
-      action: <ToastAction altText="Retry">Retry</ToastAction>,
-    });
+    if (error instanceof Error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        action: <ToastAction altText="Retry">Retry</ToastAction>,
+      });
+    } else {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred.",
+        action: <ToastAction altText="Retry">Retry</ToastAction>,
+      });
+    }
+
   } finally {
     setIsLoading(false);
   }
