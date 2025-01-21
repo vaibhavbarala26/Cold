@@ -38,6 +38,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
 interface EmailContent {
+    recipientName?:string,
     to:string;
     subject: string;
     
@@ -146,6 +147,7 @@ const Home = () => {
                             email,
                             profileId: '',
                             content: {
+                                recipientName:'',
                                 to:' ',
                                 subject: '',
                                 salutation: '',
@@ -231,6 +233,7 @@ const Home = () => {
                         email,
                         profileId: '',
                         content: {
+                            recipientName:'',
                             to:'',
                             subject: '',
                             salutation: '',
@@ -305,7 +308,8 @@ const Home = () => {
                 regards:mail.content.regards,
                 links:additionalDetails,
                 name:mail.content.name,
-                mobilenumber:mail.content.mobileNumber
+                mobilenumber:mail.content.mobileNumber,
+                recipientName:mail.content.recipientName
             }));
     
             console.log(emails); // Logs the emails array for debugging
@@ -549,7 +553,16 @@ const Home = () => {
                                                             className='border-2 border-black'
                                                             onChange={(e) => handleUpdate(ce.email, 'content', { mobileNumber: e.target.value })}
                                                         />
+                                                        <Label>Please Add the recipient name</Label>
+                                                        <Input
+                                                            id={`closing-${index}`}
+                                                            placeholder="Amanda Hayes"
+                                                            value={ce.content.recipientName}
+                                                            className='border-2 border-black'
+                                                            onChange={(e) => handleUpdate(ce.email, 'content', { recipientName: e.target.value })}
+                                                        />
                                                     </div>
+
                                                     <div className='px-2 mt-4'>
                                                         <Button onClick={()=>(setEnablelink(!enableLink))}>Add Links</Button>
                                                         {enableLink ? (

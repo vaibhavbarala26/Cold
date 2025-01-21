@@ -7,7 +7,7 @@ const RecentActivity = () => {
                 <div className='flex flex-row justify-between'>
                     <div className='flex flex-row items-center gap-2'>
                         <div className='bg-yellow-400 h-3 w-3 rounded-full'></div>
-                        <div className='flex flex-col '>
+                        <div className='flex flex-col items-start '>
                             <span className=''>Email Sent</span>
                             <span className='text-xs text-gray-400'>John Doe</span>
                         </div>
@@ -17,7 +17,7 @@ const RecentActivity = () => {
                 <div className='flex flex-row justify-between'>
                     <div className='flex flex-row items-center gap-2'>
                         <div className='bg-yellow-400 h-3 w-3 rounded-full'></div>
-                        <div className='flex flex-col '>
+                        <div className='flex flex-col  items-start  '>
                             <span className=''>Reply Received</span>
                             <span className='text-xs text-gray-400'>John Doe</span>
                         </div>
@@ -27,7 +27,7 @@ const RecentActivity = () => {
                 <div className='flex flex-row justify-between'>
                     <div className='flex flex-row items-center gap-2'>
                         <div className='bg-yellow-400 h-3 w-3 rounded-full'></div>
-                        <div className='flex flex-col '>
+                        <div className='flex flex-col  items-start '>
                             <span className=''>Follow-up scheduled</span>
                             <span className='text-xs text-gray-400'>John Doe</span>
                         </div>

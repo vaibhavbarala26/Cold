@@ -4,15 +4,7 @@ import React from 'react'
 import { CartesianGrid, Line, LineChart } from "recharts"
 
 import { Bar, BarChart, XAxis } from "recharts"
-const chartData = [
-    { Day: "Monday", Click: 186 },
-    { Day: "Tuesday", Click: 305 },
-    { Day: "Wednesday", Click: 237},
-    { Day: "Thursday", Click: 73 },
-    { Day: "Friday", Click: 209 },
-    { Day: "Saturday", Click: 214 },
-    { Day: "Sunday", Click: 214 },
-  ]
+
   import {
     ChartConfig,
     ChartContainer,
@@ -26,15 +18,7 @@ const chartConfig = {
     },
     
   } satisfies ChartConfig
-  const chartData2 = [
-    { name: "Mon", rate: 0.1 },
-  { name: "Tue", rate: 0.12 },
-  { name: "Wed", rate: 0.15 },
-  { name: "Thu", rate: 0.18 },
-  { name: "Fri", rate: 0.11 },
-  { name: "Sat", rate: 0.09 },
-  { name: "Sun", rate: 0.08 },
-  ]
+ 
   
   const chartConfig2 = {
     desktop: {
@@ -44,19 +28,21 @@ const chartConfig = {
     
   } satisfies ChartConfig
   
-const CampaignPerformance = () => {
+const CampaignPerformance = ({data}) => {
+  console.log(data);
+  
   return (
     <div className='bg-white shadow-lg p-2 rounded-lg md:w-[45vw] w-[85vw]'>
       <div className='flex flex-col'>
         <span className='text-2xl font-bold'>Campaign Performance</span>
-        <span className='text-gray-400 text-sm'>Weekly open rates and click-through rates</span>
+        <span className='text-gray-400 text-sm'>Weekly click rates and email sents</span>
       </div>
       <div>
       <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+          <BarChart accessibilityLayer data={data?.weeklyClicks}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="Day"
+              dataKey="day"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
@@ -66,7 +52,7 @@ const CampaignPerformance = () => {
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="Click" fill="#FFD700" radius={1} />
+            <Bar dataKey="clickRate" fill="#FFD700" radius={1} />
           
           </BarChart>
         </ChartContainer>
@@ -75,7 +61,7 @@ const CampaignPerformance = () => {
     
   <ChartContainer config={chartConfig2}>
     <LineChart
-      data={chartData2}
+      data={data?.weeklyEmails}
       margin={{
         top: 10,
         bottom: 10,
@@ -85,7 +71,7 @@ const CampaignPerformance = () => {
     >
       <CartesianGrid vertical={false} strokeDasharray="3 3" />
       <XAxis
-        dataKey="name"
+        dataKey="day"
         tickLine={false}
         axisLine={false}
         tickMargin={8}
@@ -96,7 +82,7 @@ const CampaignPerformance = () => {
         content={<ChartTooltipContent hideLabel />}
       />
       <Line
-        dataKey="rate"
+        dataKey="emailsSent"
         type="natural"
         stroke="#FFD700" // Yellow stroke for the line
         strokeWidth={2}

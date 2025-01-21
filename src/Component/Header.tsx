@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const {logout , user } = useUser()
 
-  console.log(user);
   const [username ,setUser] = useState<string>()
   useEffect(()=>{
     setUser(user?.name[0])
