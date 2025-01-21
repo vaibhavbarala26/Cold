@@ -2,7 +2,7 @@ import React from 'react'
 
 //import { TrendingUp } from "lucide-react"
 import { CartesianGrid, Line, LineChart } from "recharts"
-
+import { FC } from "react";
 import { Bar, BarChart, XAxis } from "recharts"
 
   import {
@@ -27,8 +27,26 @@ const chartConfig = {
     },
     
   } satisfies ChartConfig
-  
-const CampaignPerformance = ({data}) => {
+  interface data{
+    name:string,
+    emailAddress:string
+  }
+  interface weeklyclicks{
+    day:string,
+    clickRate:number
+  }
+  interface weeklyEmails{
+    day:string,
+    emailSent:number
+  }
+  interface Data {
+  address_data:data[],
+  totalClickRate:number,
+  totalMailSent:number,
+  weeklyClicks:weeklyclicks[],
+  weeklyEmails:weeklyEmails[]
+  }
+  const CampaignPerformance: FC<{ data: Data }> = ({ data }) => {
   console.log(data);
   
   return (

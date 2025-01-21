@@ -8,9 +8,27 @@ import CampaignPerformance from "@/Component/CampaignPerformance";
 import RecentActivity from "@/Component/RecentActivity";
 import ContactInfo from "@/Component/ContactInfo";
 import { useUser } from "@/Context/UserContext";
-
+interface data{
+  name:string,
+  emailAddress:string
+}
+interface weeklyclicks{
+  day:string,
+  clickRate:number
+}
+interface weeklyEmails{
+  day:string,
+  emailSent:number
+}
+interface Data {
+address_data:data[],
+totalClickRate:number,
+totalMailSent:number,
+weeklyClicks:weeklyclicks[],
+weeklyEmails:weeklyEmails[]
+}
 const Dashboard = () => {
-  const [Dashboard_data, setDash_board_Data] = useState(null);
+  const [Dashboard_data, setDash_board_Data] = useState<Data>();
   const [error, setError] = useState(null); // For error handling
   const { user } = useUser();
 

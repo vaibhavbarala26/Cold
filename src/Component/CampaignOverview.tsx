@@ -1,5 +1,25 @@
+import { FC } from "react"
 
-const CampaignOverview = ({data}) => {
+interface data{
+  name:string,
+  emailAddress:string
+}
+interface weeklyclicks{
+  day:string,
+  clickRate:number
+}
+interface weeklyEmails{
+  day:string,
+  emailSent:number
+}
+interface Data {
+address_data:data[],
+totalClickRate:number,
+totalMailSent:number,
+weeklyClicks:weeklyclicks[],
+weeklyEmails:weeklyEmails[]
+}
+const CampaignOverview  :FC<{ data: Data }> = ({ data }) => {
   console.log(data);
   
   return (
