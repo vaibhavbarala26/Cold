@@ -35,7 +35,7 @@ const Dashboard = () => {
   useEffect(() => {
     const Auto_Fetch = async () => {
       try {
-        const res = await fetch("https://cold-server-tj3x-lml0cpqoa-vaibhavbarala26s-projects.vercel.app/user/dashboard", {
+        const res = await fetch("https://vercel.com/vaibhavbarala26s-projects/cold-server-bj3d/9htjkMwvnwQcy5wQzWpE2rPDGkwB/user/dashboard", {
           method: "GET",
           credentials: "include",
           headers: {

@@ -315,7 +315,7 @@ const Home = () => {
             console.log(emails); // Logs the emails array for debugging
     
             // Send the emails to the server
-            const res = await fetch("https://cold-server-tj3x-lml0cpqoa-vaibhavbarala26s-projects.vercel.app/email", {
+            const res = await fetch("https://vercel.com/vaibhavbarala26s-projects/cold-server-bj3d/9htjkMwvnwQcy5wQzWpE2rPDGkwB/email", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json", // Ensure the server expects JSON
@@ -367,7 +367,7 @@ const Home = () => {
             console.log(emails); // Logs the emails array for debugging
     
             // Send the emails to the server
-            const res = await fetch("https://cold-server-tj3x-lml0cpqoa-vaibhavbarala26s-projects.vercel.app/email/schedule", {
+            const res = await fetch("https://vercel.com/vaibhavbarala26s-projects/cold-server-bj3d/9htjkMwvnwQcy5wQzWpE2rPDGkwB/email/schedule", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json", // Ensure the server expects JSON
