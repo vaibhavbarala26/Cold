@@ -35,7 +35,7 @@ const Dashboard = () => {
   useEffect(() => {
     const Auto_Fetch = async () => {
       try {
-        const res = await fetch("http://localhost:1042/user/dashboard", {
+        const res = await fetch("https://cold-server-bj3d.vercel.app/user/dashboard", {
           method: "GET",
           credentials: "include",
           headers: {

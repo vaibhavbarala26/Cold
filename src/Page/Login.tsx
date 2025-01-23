@@ -9,7 +9,7 @@ import {
 import google from "../assets/google.png"
 const Login = () => {
   const handleGoogleLogin = ()=>{
-    window.location.href = 'http://localhost:1042/user/auth'
+    window.location.href = 'https://cold-server-bj3d.vercel.app/user/auth'
   }
   return (
     <div className="h-[100vh] bg-red-600  ">
