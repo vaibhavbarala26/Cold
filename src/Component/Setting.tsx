@@ -61,7 +61,7 @@ const Email = () => {
         return;
       }
       setAdditionalEmail((prev) => [...prev, trimmedEmail]);
-      const res = await fetch("http://localhost:1042/user/setting/mail",{
+      const res = await fetch("https://cold-server-bj3d.vercel.app/user/setting/mail",{
         method:"POST",
         headers: {
           "Content-Type": "application/json", // Ensure the server expects JSON
@@ -87,7 +87,7 @@ const Email = () => {
 const HandleSaveSettings = async () => {
   try {
     setIsLoading(true);
-    const res = await fetch("http://localhost:1042/user/setting/followup", {
+    const res = await fetch("https://cold-server-bj3d.vercel.app/user/setting/followup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -100,7 +100,7 @@ const HandleSaveSettings = async () => {
 
     if (!res.ok) throw new Error("Failed to save follow-up settings.");
 
-    const resr = await fetch("http://localhost:1042/user/setting/alerts", {
+    const resr = await fetch("https://cold-server-bj3d.vercel.app/user/setting/alerts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

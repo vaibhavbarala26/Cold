@@ -35,7 +35,7 @@ const Dashboard = () => {
   useEffect(() => {
     const Auto_Fetch = async () => {
       try {
-        const res = await fetch("https://cold-server-bj3d.vercel.app/user/dashboard", {
+        const res = await fetch("http://localhost:1042/user/dashboard", {
           method: "GET",
           credentials: "include",
           headers: {
@@ -46,6 +46,8 @@ const Dashboard = () => {
           throw new Error("Failed to fetch data");
         }
         const data = await res.json();
+        console.log(data);
+        
         setDash_board_Data(data);
       } catch (err:any) {
         setError(err.message);
