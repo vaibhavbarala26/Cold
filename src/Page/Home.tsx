@@ -488,7 +488,7 @@ const Home = () => {
                                                         <Label htmlFor={`opening-${index}`}>opening line</Label>
                                                         <Input
                                                             id={`opening-${index}`}
-                                                            placeholder="My name is Jonathan Miller, and I am writing to express my interest in the Data Analyst role at DataDive Inc"
+                                                            placeholder="I hope this email finds you well"
                                                             value={ce.content.openingline}
                                                             className='border-2 border-black'
                                                             onChange={(e) => handleUpdate(ce.email, 'content', { openingline: e.target.value })}
@@ -496,7 +496,7 @@ const Home = () => {
                                                         <Label htmlFor={`opening-${index}`}>Introduction</Label>
                                                         <Input
                                                             id={`opening-${index}`}
-                                                            placeholder="My name is Jonathan Miller, and I am writing to express my interest in the Data Analyst role at DataDive Inc"
+                                                            placeholder=" I’m Sarah Carter, and I specialize in operational efficiency and workflow optimization. I came across Acme Corp’s recent expansion into renewable energy solutions, and it’s clear you’re making great strides in revolutionizing the industry."
                                                             value={ce.content.body.introduction}
                                                             className='border-2 border-black'
                                                             onChange={(e) => handleUpdate(ce.email, 'body', { introduction: e.target.value })}
