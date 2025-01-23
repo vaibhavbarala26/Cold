@@ -636,13 +636,7 @@ const Home = () => {
                             <DialogTitle>Send Campaign</DialogTitle>
                         </DialogHeader>
                         <DialogDescription>
-                            <div className='flex flex-row items-center gap-2 mt-2'>
-                                <Switch 
-                                    checked={followup}
-                                    onCheckedChange={setFollowup}
-                                />
-                                <Label className='text-black'>Enable Follow-Ups</Label>
-                            </div>
+                           
                             <div className='flex flex-col gap-3 mt-4'>
                                 <Label className='text-black'>Schedule Send (optional)</Label>
                                 <Input

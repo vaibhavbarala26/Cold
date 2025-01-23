@@ -16,6 +16,7 @@ import Dashboard from './Page/Dashboard';
 import Setting from './Page/Setting';
 import { UserProvider} from './Context/UserContext';
 import ProtectedRoute from './Component/Protected_Routes';
+import Followup from './Page/Followup';
 // Import your Publishable Key
 
 const router = createBrowserRouter([
@@ -53,6 +54,12 @@ const router = createBrowserRouter([
     element:<ProtectedRoute>
     <Setting></Setting>
     </ProtectedRoute>
+  },
+  {
+    path:"/followup",
+    element:
+      <Followup></Followup>
+    
   }
 ]);
 ReactDOM.createRoot(document.getElementById('root')!).render(
