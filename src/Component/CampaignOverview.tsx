@@ -35,7 +35,7 @@ const CampaignOverview  :FC<{ data: Data }> = ({ data }) => {
   </div>
   
   <div className="flex flex-col items-center text-center">
-    <span className="md:text-2xl text-yellow-400 font-bold">{ data?.totalMailSent ? data?.totalClickRate/data?.totalMailSent *100 : 0 }%</span>
+    <span className="md:text-2xl text-yellow-400 font-bold">{ data?.totalMailSent ? (data?.totalClickRate/data?.totalMailSent *100).toFixed(2) : 0 }%</span>
     <span className="text-sm text-gray-600">Click Rate</span>
   </div>
   
