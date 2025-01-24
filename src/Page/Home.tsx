@@ -599,7 +599,7 @@ const Home = () => {
                                                         <div className=' mt-3 gap-2 flex flex-row items-center'>
                                                             <Input placeholder='Lable' value={label} onChange={(e) => (setlabel(e.target.value))} ></Input>
                                                             <Input placeholder='url' value={url} onChange={(e) => (seturl(e.target.value))}></Input>
-                                                            <Button onClick={() => handleaddLinks(ce.email, { label, url })}
+                                                            <Button onClick={() => handleaddLinks(ce.email, { label, url , email:ce.email })}
     disabled={!label || !url}>add</Button>
                                                         </div>
                                                     ) : (null)}
