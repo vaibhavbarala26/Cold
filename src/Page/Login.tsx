@@ -9,7 +9,8 @@ import {
 import google from "../assets/google.png"
 const Login = () => {
   const handleGoogleLogin = ()=>{
-    window.location.href = 'https://cold-server-bj3d.vercel.app/user/auth'
+    const url =import.meta.env.VITE_ENVIRONMENT === "prod" ? 'https://cold-server-bj3d.vercel.app/user/auth':"http://localhost:1042/user/auth"
+    window.location.href = url
   }
   return (
     <div className="h-[100vh] bg-red-600  ">
